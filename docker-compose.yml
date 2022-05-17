@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  api:
+    container_name: 'redis-api'
+    build: 
+      context: ./RedisCachedApi
+      dockerfile: Dockerfile
+    hostname: redis-api
+    mem_limit: 500m
+    memswap_limit: 2000m
+    ports:
+      - 15010:80
+    restart: always
+
+  spa:
+    container_name: 'redis-spa'
+    hostname: redis-spa
+    restart: always
+    healthcheck:
+      test: curl --fail -s http://localhost:80 || exit 1
+      interval: 20s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    ports:
+    - "15011:80"
+    build: 
+      context: ./RedisSPA
+      dockerfile: Dockerfile
+
+  cache:
+    image: redis:6.2-alpine
+    hostname: redis-cache
+    restart: always
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    ports:
+      - '16379:6379'
+    volumes: 
+      - cache:/data
+volumes:
+  cache:
+    driver: local
