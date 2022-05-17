@@ -1,0 +1,28 @@
+<div>
+  <button (click)="getData()">Get Occupation data</button>
+  <p>Time to fetch: {{occupationResult?.timeElapsed}}</p>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Average Wage</th>
+        <th scope="col">Average Wage Appx MOE</th>
+        <th scope="col">Detailed Occupation</th>
+        <th scope="col">Slug Detailed Occupation</th>
+        <th scope="col">ID Year</th>
+        <th scope="col">year</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let occ of occupationResult?.occupations">
+        <th scope="row">{{occ['ID Detailed Occupation']}}</th>
+        <td scope="row">{{occ['Average Wage']}}</td>
+        <td scope="row">{{occ['Average Wage Appx MOE']}}</td>
+        <td scope="row">{{occ['Detailed Occupation']}}</td>
+        <td scope="row">{{occ['Slug Detailed Occupation']}}</td>
+        <td scope="row">{{occ['ID Year']}}</td>
+        <td scope="row">{{occ['year']}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,6 @@
+{
+  "/occupation/api": {
+    "target": "http://localhost:5278",
+    "secure": false
+  }
+}
